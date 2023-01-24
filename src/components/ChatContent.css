@@ -1,0 +1,22 @@
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.chat-content__container {
+  scrollbar-width: auto;
+  scrollbar-color: #344e41 #dad7cd;
+}
+
+/* Chrome, Edge, and Safari */
+.chat-content__container::-webkit-scrollbar {
+  width: 10px;
+  max-height: 150px;
+}
+
+.chat-content__container::-webkit-scrollbar-track {
+  background: #a3b18a;
+}
+
+.chat-content__container::-webkit-scrollbar-thumb {
+  background-color: #344e41;
+  border-radius: 10px;
+  border: 0px solid #588157;
+}
