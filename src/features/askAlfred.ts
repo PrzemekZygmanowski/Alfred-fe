@@ -1,4 +1,8 @@
-export const askAlfred = async (val: string) => {
+export interface Answer {
+  answer: string;
+}
+
+export const askAlfred = async (val: string): Promise<Answer> => {
   const response = await fetch("http://localhost:3000/messages", {
     method: "POST",
     body: val,
@@ -11,5 +15,5 @@ export const askAlfred = async (val: string) => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   const data = await response.json();
-  console.log(data.answer);
+  return data;
 };

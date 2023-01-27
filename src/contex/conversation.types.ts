@@ -13,3 +13,8 @@ export interface ConversationAction {
   type: string;
   payload: Conversation;
 }
+
+export interface ConversationContextType {
+  conversations: Conversation[];
+  addConversation: (conversation: Conversation) => void;
+}

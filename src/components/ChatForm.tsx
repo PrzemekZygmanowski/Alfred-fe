@@ -1,20 +1,55 @@
 import { Field, Form, Formik } from "formik";
-import { askAlfred } from "../features/askAlfred";
+import { useContext } from "react";
+import { ConversationContextType } from "../contex/conversation.types";
+import { ConversationContext } from "../contex/ConversationState";
 
 interface messageT {
   message: string;
 }
 
+export interface Answer {
+  answer: string;
+}
+
 export const ChatForm = () => {
+  const { addConversation } = useContext(
+    ConversationContext
+  ) as ConversationContextType;
+
+  const askAlfred = async (message: string): Promise<void> => {
+    const response = await fetch("http://localhost:3000/messages", {
+      method: "POST",
+      body: message,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const { answer } = await response.json();
+    const messageVal = JSON.parse(message);
+
+    const conversation = {
+      message: messageVal.message,
+      answer: answer,
+    };
+    console.log(conversation);
+
+    addConversation(conversation);
+  };
+
   const initialValues: messageT = { message: "" };
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting }) => {
-        const val = JSON.stringify(values, null, 2);
+        const message = JSON.stringify(values, null, 2);
         setTimeout(() => {
-          askAlfred(val);
+          askAlfred(message);
+
           setSubmitting(false);
         }, 400);
       }}>

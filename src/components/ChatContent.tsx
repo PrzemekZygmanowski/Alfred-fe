@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import butler from "../assets/butler.png";
 import hacker from "../assets/hacker.png";
+import { ConversationContextType } from "../contex/conversation.types";
 import { ConversationContext } from "../contex/ConversationState";
+
 import "./ChatContent.css";
 
 // const conversations = [
@@ -14,8 +16,11 @@ import "./ChatContent.css";
 // ];
 
 export const ChatContent = () => {
-  const { conversations } = useContext(ConversationContext);
+  const { conversations } = useContext(
+    ConversationContext
+  ) as ConversationContextType;
   const indexSuffix = new Date();
+  console.log(conversations);
 
   return (
     <div className='chat-content__container bg-green text-lightBrown rounded border-brown border-2 w-3/5 h-60 my-8 overflow-y-scroll'>
